@@ -1,0 +1,32 @@
+<idea-plugin>
+  <id>dev.booij.shoot-plugin</id>
+  <name>Shoot Support (a Twig extension)</name>
+  <version>1.0</version>
+  <vendor email="erik@booij.me">Erik Booij</vendor>
+
+  <description><![CDATA[
+      This plugin provides easier navigation through projects that use Twig in combination with Shoot.
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Initial release:
+
+      <ul>
+        <li>Cmd + click to jump from template to modal</li>
+        <li>Cmd + Shift + click to jump from template to presenter</li>
+      </ul>
+    ]]>
+  </change-notes>
+
+  <idea-version since-build="173.0"/>
+
+  <depends>com.intellij.modules.php-capable</depends>
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.jetbrains.php</depends>
+  <depends>com.jetbrains.twig</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <gotoDeclarationHandler implementation="ShootModelGotoDeclarationHandler"/>
+  </extensions>
+
+</idea-plugin>
