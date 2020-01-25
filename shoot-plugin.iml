@@ -9,8 +9,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="php" level="project" />
-    <orderEntry type="library" exported="" name="php-openapi" level="project" />
-    <orderEntry type="library" exported="" name="twig" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="php-openapi" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="twig" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="php" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="php-openapi-src" level="project" />
   </component>
 </module>

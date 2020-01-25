@@ -1,11 +1,13 @@
+package dev.booij.shoot_plugin;
+
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandlerBase;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.FilenameIndex;
-import com.intellij.psi.search.GlobalSearchScope;
+import com.jetbrains.php.PhpIndex;
+import com.jetbrains.php.lang.psi.elements.PhpClass;
+import com.jetbrains.twig.TwigFileType;
 import org.jetbrains.annotations.Nullable;
+
 
 public class ShootModelGotoDeclarationHandler extends GotoDeclarationHandlerBase {
     @Nullable
@@ -15,20 +17,21 @@ public class ShootModelGotoDeclarationHandler extends GotoDeclarationHandlerBase
             return null;
         }
 
-        if (!psiElement.getContainingFile().getFileType().getName().equals("Twig")) {
+        if (!psiElement.getContainingFile().getFileType().equals(TwigFileType.INSTANCE)) {
             return null;
         }
 
-        String searchTarget = psiElement.getText();
-        searchTarget = searchTarget.substring(searchTarget.lastIndexOf('\\') + 1).trim();
-        Project project = psiElement.getProject();
 
-        PsiFile[] files = FilenameIndex.getFilesByName(project, searchTarget + ".php", GlobalSearchScope.allScope(project));
+        String searchTarget = psiElement.getText().replaceAll("\\\\\\\\", "\\\\");
 
-        if (files.length != 1) {
+        PhpIndex index = PhpIndex.getInstance(psiElement.getProject());
+
+        PhpClass[] classes = index.getClassesByFQN(searchTarget).toArray(new PhpClass[0]);
+
+        if (classes.length != 1) {
             return null;
         }
 
-        return files[0];
+        return classes[0].getContainingFile();
     }
 }

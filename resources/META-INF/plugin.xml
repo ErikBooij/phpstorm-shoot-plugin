@@ -1,7 +1,7 @@
 <idea-plugin>
-  <id>dev.booij.shoot-plugin</id>
+  <id>dev.booij.shoot_plugin</id>
   <name>Shoot Support (a Twig extension)</name>
-  <version>1.0</version>
+  <version>1.0.1</version>
   <vendor email="erik@booij.me">Erik Booij</vendor>
 
   <description><![CDATA[
@@ -12,8 +12,7 @@
       Initial release:
 
       <ul>
-        <li>Cmd + click to jump from template to modal</li>
-        <li>Cmd + Shift + click to jump from template to presenter</li>
+        <li>Jump to definition for Shoot models referenced in Twig templates</li>
       </ul>
     ]]>
   </change-notes>
@@ -26,7 +25,7 @@
   <depends>com.jetbrains.twig</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <gotoDeclarationHandler implementation="ShootModelGotoDeclarationHandler"/>
+    <gotoDeclarationHandler implementation="dev.booij.shoot_plugin.ShootModelGotoDeclarationHandler"/>
   </extensions>
 
 </idea-plugin>
