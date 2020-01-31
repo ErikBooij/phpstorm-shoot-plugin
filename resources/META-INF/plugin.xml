@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>dev.booij.shoot_plugin</id>
   <name>Shoot Support (a Twig extension)</name>
-  <version>1.0.2</version>
+  <version>1.0.1</version>
   <vendor email="erik@booij.me">Erik Booij</vendor>
 
   <description><![CDATA[
@@ -19,7 +19,6 @@
 
   <idea-version since-build="173.0"/>
 
-  <depends>com.intellij.modules.php-capable</depends>
   <depends>com.intellij.modules.platform</depends>
   <depends>com.jetbrains.php</depends>
   <depends>com.jetbrains.twig</depends>
