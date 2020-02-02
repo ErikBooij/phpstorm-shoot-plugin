@@ -1,18 +1,22 @@
 <idea-plugin>
   <id>dev.booij.shoot_plugin</id>
   <name>Shoot Support (a Twig extension)</name>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <vendor email="erik@booij.me">Erik Booij</vendor>
 
   <description><![CDATA[
-      This plugin provides easier navigation through projects that use Twig in combination with Shoot.
+      This plugin provides a Shoot integration for PhpStorm.
+
+      Features:
+      <ul>
+        <li>Jump to definition navigation from template to model.</li>
+        <li>Autocompletion of model variables in templates</li>
+      </ul>
     ]]></description>
 
   <change-notes><![CDATA[
-      Initial release:
-
       <ul>
-        <li>Jump to definition for Shoot models referenced in Twig templates</li>
+        <li>Add autocompletion of model variables</li>
       </ul>
     ]]>
   </change-notes>
@@ -25,6 +29,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <gotoDeclarationHandler implementation="dev.booij.shoot_plugin.ShootModelGotoDeclarationHandler"/>
+    <completion.contributor language="Twig" implementationClass="dev.booij.shoot_plugin.ShootModelCompletionContributor"/>
   </extensions>
 
 </idea-plugin>
