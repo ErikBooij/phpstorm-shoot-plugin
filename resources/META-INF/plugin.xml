@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>dev.booij.shoot_plugin</id>
   <name>Shoot Support (a Twig extension)</name>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <vendor email="erik@booij.me">Erik Booij</vendor>
 
   <description><![CDATA[
@@ -10,13 +10,14 @@
       Features:
       <ul>
         <li>Jump to definition navigation from template to model.</li>
+        <li>Jump to definition navigation from template variables to model fields.</li>
         <li>Autocompletion of model variables in templates</li>
       </ul>
     ]]></description>
 
   <change-notes><![CDATA[
       <ul>
-        <li>Add autocompletion of model variables</li>
+        <li>Add jump to navigation for model variables</li>
       </ul>
     ]]>
   </change-notes>

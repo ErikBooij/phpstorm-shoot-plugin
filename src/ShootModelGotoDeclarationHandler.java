@@ -3,9 +3,11 @@ package dev.booij.shoot_plugin;
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandlerBase;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiElement;
-import com.jetbrains.php.PhpIndex;
+import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.jetbrains.php.lang.psi.elements.Field;
 import com.jetbrains.php.lang.psi.elements.PhpClass;
 import com.jetbrains.twig.TwigFileType;
+import com.jetbrains.twig.TwigTokenTypes;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -17,21 +19,47 @@ public class ShootModelGotoDeclarationHandler extends GotoDeclarationHandlerBase
             return null;
         }
 
+        if (!(psiElement instanceof LeafPsiElement)) {
+            return null;
+        }
+
         if (!psiElement.getContainingFile().getFileType().equals(TwigFileType.INSTANCE)) {
             return null;
         }
 
+        if (((LeafPsiElement) psiElement).getElementType() == TwigTokenTypes.IDENTIFIER) {
+            return this.getModelVariable(psiElement);
+        }
 
-        String searchTarget = psiElement.getText().replaceAll("\\\\\\\\", "\\\\");
+        if (((LeafPsiElement) psiElement).getElementType() == TwigTokenTypes.STRING_TEXT) {
+            PhpClass modelClass = dev.booij.shoot_plugin.ShootHelper.getModelClassFromString(psiElement.getText(), psiElement.getProject());
 
-        PhpIndex index = PhpIndex.getInstance(psiElement.getProject());
+            if (modelClass == null) {
+                return null;
+            }
 
-        PhpClass[] classes = index.getClassesByFQN(searchTarget).toArray(new PhpClass[0]);
+            return modelClass.getContainingFile();
+        }
 
-        if (classes.length != 1) {
+        return null;
+    }
+
+    @Nullable
+    private PsiElement getModelVariable(PsiElement psiElement) {
+        PhpClass model = dev.booij.shoot_plugin.ShootHelper.findModel(psiElement.getContainingFile());
+
+        if (model == null) {
             return null;
         }
 
-        return classes[0].getContainingFile();
+        String variableName = psiElement.getText();
+
+        for (Field field: model.getFields()) {
+            if (field.getName().equals(variableName) && !field.getModifier().isPrivate()) {
+                return field;
+            }
+        }
+
+        return null;
     }
 }
